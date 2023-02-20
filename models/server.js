@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routesUser from "../routes/usuarios.js";
+import routesAuth from "../routes/auth.js";
 import dbConnection from "../database/config.js";
 
 class Server {
@@ -8,6 +9,7 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
     this.usuariosPath = '/api/usuarios';
+    this.authPath = '/api/auth';
     //Conectar a la base de datos
     this.conectarDB();
     //Middlewares
@@ -28,6 +30,7 @@ class Server {
   }
   routes() {
     this.app.use(this.usuariosPath, routesUser);
+    this.app.use(this.authPath, routesAuth);
   }
   listen() {
     this.app.listen(this.port, () => {
